@@ -21,16 +21,16 @@ Step 2: Building an alternative service
 Declaring a new service in Drupal 8 has two parts, a .services.yml file and the class that provides the service.
 
 This is the countries_fifa.services.yml file, note that you need to respect the namespaces to get PSR-0 working. You could send whatever arguments you might need, in this case I wanted to keep it simple.
-<code>
+```php
 services:
   fifa_country_manager:
     class: Drupal\countries_fifa\FifaCountryManager
     arguments: [{  }, {  }]
-</code>
+```
 
 The class we need is extending/replacing the country list, so it needs to extend & include CountryManagerInterface.
 
-<code>
+```php
 namespace Drupal\countries_fifa;
 
 use Drupal\Core\Locale\CountryManagerInterface;
@@ -39,7 +39,7 @@ use Drupal\Core\Locale\CountryManagerInterface;
  * Provides list of countries coming from the FIFA.
  */
 class FifaCountryManager implements CountryManagerInterface {
-</code>
+```
 
 Step 3: The compiler pass
 -------------------------
@@ -48,7 +48,7 @@ Service containers are compiled into a cached file that lives in our files/php f
 
 What we're doing in this compiler pass is telling the Depenency injection container that instead of using the default country list provided by the service country_manager, uses ours.
 
-<code>
+```php
 namespace Drupal\countries_fifa;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -71,7 +71,7 @@ class FifaCountryManagerPass implements CompilerPassInterface {
   }
 
 }
-</code>
+```
 
 We could potentially do other stuff in here, such as validations and alterations, not just plain replacement. Think of this as of a very sophisticated hook_alter.
 
@@ -80,7 +80,7 @@ Step 4: The Bundle
 
 There's still another thing we need to do in order to get the service altered, we need to declare a Bundle component that will add the compiler pass declared on step 3 using addCompilerPass method.
 
-<code>
+```php
 namespace Drupal\countries_fifa;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -99,6 +99,7 @@ class CountriesFifaBundle extends Bundle {
   }
 }
 </code>
+```
 
 References
 ----------
