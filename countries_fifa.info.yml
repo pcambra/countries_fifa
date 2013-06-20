@@ -1,0 +1,5 @@
+name: Countries FIFA
+type: module
+description: 'Replace core country list by the one provided by the FIFA.'
+package: Other
+core: 8.x

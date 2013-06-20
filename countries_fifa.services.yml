@@ -1,0 +1,4 @@
+services:
+  fifa_country_manager:
+    class: Drupal\countries_fifa\FifaCountryManager
+    arguments: [{  }, {  }]
